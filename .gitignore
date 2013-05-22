@@ -10,7 +10,7 @@ target
 *.project
 *.pydevproject
 *.settings
-
+*.jar
 tmp/*
 .DS_Store
 .idea/
