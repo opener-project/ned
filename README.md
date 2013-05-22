@@ -1,6 +1,6 @@
 # EHU-ned_kernel
 
-This repository is contains the Named Entity Disambiguation tool based on DBpedia Spotlight.
+This repository contains the Named Entity Disambiguation tool based on DBpedia Spotlight.
 Providing that a DBpedia Spotlight Rest server is running, the EHU-ned module will take
 KAF as input (containing <entities> elements) and perform Named Entity Disambiguation
 for each language within the OpeNER project.
@@ -17,7 +17,6 @@ The contents of the repository are the following:
 
 - README.md: This README
 
-
 ## Installation Procedure
 
 In a snapshot:
@@ -28,7 +27,6 @@ In a snapshot:
        cd dbpedia-spotlight/conf
        java -jar ../dist/target/dbpedia-spotlight-0.6-jar-with-dependencies.jar
     4. cat ner.kaf | EHU-ned_kernel/core/target/ehu-ned-1.0.jar -p $PORT_NUMBER
-
 
 If you already have installed in your machine JDK7 and MAVEN 3, please go to step 3
 directly. Otherwise, follow the detailed steps:
@@ -59,7 +57,6 @@ You should now see that your jdk is 1.7
 Download MAVEN 3 from
 
     wget http://ftp.udc.es/apache/maven/maven-3/3.0.4/binaries/apache-maven-3.0.4-bin.tar.gz
-
 
 Now you need to configure the PATH. For Bash Shell:
 
@@ -113,8 +110,8 @@ ehu-ned-1.0.jar binary with all dependencies included.
 ### 6. EHU-ned USAGE
 
 The ehu-ned-1.0.jar requires a KAF document containing <entities> elements as standard input and
-provides Named Entity Disambiguation as standard output. It also requires the port number as argument. The language
-is automatically identified from the KAF lang attribute. The port numbers assigned to each language are the following:
+provides Named Entity Disambiguation as standard output. It also requires the port number as argument.
+The port numbers assigned to each language are the following:
 
     - de: 2010
     - en: 2020
@@ -125,7 +122,7 @@ is automatically identified from the KAF lang attribute. The port numbers assign
 
 If you wanted to change the port numbers, please do so at the corresponding server_$lang.properties
 in the [EHU-DBpedia-Spotlight](https://github.com/opener-project/EHU-DBpedia-Spotlight) repository. Note that
-this will mean to re-install the mentioned repository.
+you will also need to change the corresponding server_$lang.properties in `dbpedia-spotlight/conf/` directory.
 
 **Once you have a [DBpedia Spotlight Rest server running](https://github.com/opener-project/EHU-DBpedia-Spotlight)** you
 can send queries to it via the EHU-ned module as follows:
