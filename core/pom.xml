@@ -26,7 +26,7 @@
     </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- <internal.path>/home/ragerri/javacode/dbpedia-spotlight/dist/target/</internal.path> -->
+        <!-- <internal.path>/home/ragerri/javacode/dbpedia-spotlight/dist/target/</internal.path>-->
     </properties>
     <prerequisites>
         <maven>3.0</maven>
@@ -79,10 +79,9 @@
         </dependency>
 
    <dependency>
-      <groupId>org.dbpedia.spotlight</groupId>
-      <artifactId>core</artifactId>
+      <groupId>ixa</groupId>
+      <artifactId>dbpedia.spotlight</artifactId>
       <version>0.6</version>
-      <scope>provided</scope>
     </dependency>
 
   </dependencies>
@@ -105,7 +104,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
 										<Main-Class>ehu.ned.CLI</Main-Class>
-										<Class-Path>${internal.path}/dbpedia-spotlight-0.6-jar-with-dependencies.jar</Class-Path>
+										<!-- <Class-Path>${internal.path}/dbpedia-spotlight-0.6-jar-with-dependencies.jar</Class-Path> -->
 									</manifestEntries>
 								</transformer>
 							</transformers>
@@ -116,7 +115,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 
 		</plugins>
 	</build>
