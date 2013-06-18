@@ -4,7 +4,7 @@
 *.so
 *.so.old
 *.swp
-target
+core/target
 *.class
 *.classpath
 *.project
@@ -18,3 +18,5 @@ pkg/
 Gemfile.lock
 *.swp
 dependency-reduced-pom.xml
+
+!.gitkeep
