@@ -17,4 +17,4 @@ tmp/*
 pkg/
 Gemfile.lock
 *.swp
-
+dependency-reduced-pom.xml
