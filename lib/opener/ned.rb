@@ -17,7 +17,7 @@ module Opener
     ##
     # @return [String]
     #
-    DEFAULT_HOST = 'localhost'
+    DEFAULT_HOST = 'http://localhost'
 
     ##
     # @return [Numeric]
