@@ -123,13 +123,13 @@ Petrobras" offset="365"/><surfaceForm name="Twelve" offset="376"/>
 offset="414"/></annotation>
      */
 
-    public Document extract(Text text, String port) throws AnnotationException{
+    public Document extract(Text text, String host, String port) throws AnnotationException{
 
         LOG.info("Querying API.");
 		String spotlightResponse = "";
 		Document doc = null;
 		try {
-		    String url = "http://localhost:" + port +"/rest/disambiguate";
+		    String url = host + ":" + port +"/rest/disambiguate";
 		    PostMethod method = new PostMethod(url);
 		    method.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		    NameValuePair[] params = {new NameValuePair("text",text.text()), new NameValuePair("spotter","SpotXmlParser"), new NameValuePair("confidence",Double.toString(CONFIDENCE)), new NameValuePair("support",Integer.toString(SUPPORT))};

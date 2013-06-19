@@ -15,7 +15,7 @@ import net.sourceforge.argparse4j.inf.Namespace;
 public class CLI {
 
     public static void main(String[] args) throws Exception { // throws IOException {
-    	
+
     	Namespace parsedArguments = null;
 
         // create Argument Parser
@@ -30,9 +30,12 @@ public class CLI {
             .choices("2010","2020","2030","2040","2050","2060")
             .required(true)
             .help(
-                "It is REQUIRED to choose a port number. Port numbers are assigned" +
-                "alphabetically by language code: de:2010,en:2020,es:2030,fr:2040,it:2050,nl:2060");
+                "It is REQUIRED to choose a port number. Port numbers are assigned " +
+                "alphabetically by language code: de:2010, en:2020, es:2030, fr:2040, it:2050, nl:2060");
 
+        parser.addArgument("-H", "--host").setDefault("http://localhost").help("Choose hostname in which dbpedia-spotlight rest " +
+            "server is being executed; this value defaults to 'http://localhost'");
+        
         /*
          * Parse the command line arguments
          */
@@ -51,7 +54,8 @@ public class CLI {
          * Load language and headFinder parameters
          */
 
-        String port = parsedArguments.getString("port"); 	
+        String port = parsedArguments.getString("port");
+        String host = parsedArguments.getString("host");
 
     	Annotate annotator = new Annotate();
 		// Input
@@ -62,9 +66,9 @@ public class CLI {
 		stdInReader = new BufferedReader(new InputStreamReader(System.in,"UTF-8"));
 		w = new BufferedWriter(new OutputStreamWriter(System.out,"UTF-8"));
 		KAFDocument kaf = KAFDocument.createFromStream(stdInReader);
-		annotator.disambiguateNEsToKAF(kaf,port);
+		annotator.disambiguateNEsToKAF(kaf, host, port);
 		w.write(kaf.toString());
 		w.close();
-	    } 
+	    }
 
 }

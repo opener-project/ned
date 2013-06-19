@@ -28,10 +28,10 @@ public class Annotate {
 	c = new DBpediaSpotlightClient ();
     }
 
-    public void disambiguateNEsToKAF (KAFDocument kaf,String port) throws Exception { 
+    public void disambiguateNEsToKAF (KAFDocument kaf, String host, String port) throws Exception { 
 	kaf.addLinguisticProcessor("ehu-ned", "ehu-dbpedia-spotlight", "1.0");
 	String annotation = KAF2XMLSpot(kaf);
-	Document response = annotate(annotation,port);
+	Document response = annotate(annotation, host, port);
 	XMLSpot2KAF(kaf,response);
     }
 
@@ -97,8 +97,8 @@ public class Annotate {
 	return annotation;
     }
 
-    private Document annotate(String annotation,String port) throws AnnotationException {
-	Document response = c.extract(new Text(annotation),port);
+    private Document annotate(String annotation, String host, String port) throws AnnotationException {
+	Document response = c.extract(new Text(annotation), host, port);
 	return response;
     }
     
