@@ -1,93 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>ehu</groupId>
-  <artifactId>ehu-ned</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0</version>
-  <name>ehu-ned</name>
-  <description>ehu-ned is part of IXA-pipeline and is based on DBpedia Spotlight.
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ehu</groupId>
+	<artifactId>ehu-ned</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>ehu-ned</name>
+	<description>ehu-ned is part of IXA-pipeline and is based on DBpedia Spotlight.
     In principle the pipeline is available for the annotation of English and Spanish texts, but it can be easily extended to
     deal with other languages too. All models have been trained by the IXA NLP Group of the University of the
     Basque Country (ixa.si.ehu.es). This particular module performs Named Entity
     Disambiguation.
         </description>
-    <developers>
-        <developer>
-        <id>ialdabe</id>
-        <name>Itziar Aldabe</name>
-        <email>itziar.aldabe@ehu.es</email>
-        </developer>
-        <developer>
-            <id>ragerri</id>
-            <name>Rodrigo Agerri</name>
-            <email>rodrigo.agerri@ehu.es</email>
-        </developer>
-    </developers>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- <internal.path>/home/ragerri/javacode/dbpedia-spotlight/dist/target/</internal.path>-->
-    </properties>
-    <prerequisites>
-        <maven>3.0</maven>
-    </prerequisites>
-  <url>http://maven.apache.org</url>
+	<developers>
+		<developer>
+			<id>ialdabe</id>
+			<name>Itziar Aldabe</name>
+			<email>itziar.aldabe@ehu.es</email>
+		</developer>
+		<developer>
+			<id>ragerri</id>
+			<name>Rodrigo Agerri</name>
+			<email>rodrigo.agerri@ehu.es</email>
+		</developer>
+	</developers>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- <internal.path>/home/ragerri/javacode/dbpedia-spotlight/dist/target/</internal.path> -->
+	</properties>
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+	<url>http://maven.apache.org</url>
 
-  <repositories>
-    <repository>
-      <id>ixa-ehu.github</id>
-      <url>https://raw.github.com/ixa-ehu/kaflib-mvn-repo/master</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-    </repository>
-  </repositories>
+	<repositories>
+		<repository>
+			<id>ixa-ehu.github</id>
+			<url>https://raw.github.com/ixa-ehu/kaflib-mvn-repo/master</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
-    <dependency>
-      <groupId>ixa.kaflib</groupId>
-      <artifactId>kaflib</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+		<dependency>
+			<groupId>ixa.kaflib</groupId>
+			<artifactId>kaflib</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 
 
-   <dependency>
-     <groupId>commons-httpclient</groupId>
-     <artifactId>commons-httpclient</artifactId>
-     <version>3.1</version>
-   </dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
 
-   <dependency>
-     <groupId>commons-io</groupId>
-     <artifactId>commons-io</artifactId>
-     <version>2.4</version>
-     <scope>compile</scope>
-   </dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>compile</scope>
+		</dependency>
 
-   <dependency>
-            <groupId>net.sourceforge.argparse4j</groupId>
-            <artifactId>argparse4j</artifactId>
-            <version>0.3.2</version>
-        </dependency>
+		<dependency>
+			<groupId>net.sourceforge.argparse4j</groupId>
+			<artifactId>argparse4j</artifactId>
+			<version>0.3.2</version>
+		</dependency>
 
-   <dependency>
-      <groupId>ixa</groupId>
-      <artifactId>dbpedia.spotlight</artifactId>
-      <version>0.6</version>
-    </dependency>
+		<dependency>
+			<groupId>ixa</groupId>
+			<artifactId>dbpedia.spotlight</artifactId>
+			<version>0.6</version>
+		</dependency>
 
-  </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -109,7 +119,7 @@
 								</transformer>
 							</transformers>
 							<artifactSet>
-							<excludes></excludes>
+								<excludes />
 							</artifactSet>
 						</configuration>
 					</execution>
