@@ -4,9 +4,9 @@ generated = Dir.glob('core/target/ehu-ned-*.jar')
 
 Gem::Specification.new do |gem|
   gem.name        = 'opener-ned'
-  gem.version     = Opener::NED::VERSION
+  gem.version     = Opener::Ned::VERSION
   gem.authors     = ['development@olery.com']
-  gem.summary     = 'NED client using DBpedia'
+  gem.summary     = 'Ned client using DBpedia'
   gem.description = gem.summary
   gem.has_rdoc    = 'yard'
 
