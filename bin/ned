@@ -2,6 +2,6 @@
 
 require_relative '../lib/opener/ned'
 
-cli = Opener::NED::CLI.new(:args => ARGV)
+cli = Opener::Ned::CLI.new(:args => ARGV)
 
 cli.run(STDIN.tty? ? nil : STDIN.read)

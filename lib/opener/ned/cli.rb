@@ -1,7 +1,7 @@
 module Opener
-  class NED
+  class Ned
     ##
-    # CLI wrapper around {Opener::NED} using OptionParser.
+    # CLI wrapper around {Opener::Ned} using OptionParser.
     #
     # @!attribute [r] options
     #  @return [Hash]
@@ -67,7 +67,7 @@ Port Numbers:
       def run(input)
         option_parser.parse!(options[:args])
 
-        ned = NED.new(options)
+        ned = Ned.new(options)
 
         stdout, stderr, process = ned.run(input)
 
@@ -96,5 +96,5 @@ Port Numbers:
         abort "#{option_parser.program_name} v#{VERSION} on #{RUBY_DESCRIPTION}"
       end
     end # CLI
-  end # NED
+  end # Ned
 end # Opener

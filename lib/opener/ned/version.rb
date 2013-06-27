@@ -1,5 +1,5 @@
 module Opener
-  class NED
+  class Ned
     VERSION = '0.2.0'
-  end # NED
+  end # Ned
 end # Opener

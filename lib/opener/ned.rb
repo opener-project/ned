@@ -6,12 +6,12 @@ require_relative 'ned/cli'
 
 module Opener
   ##
-  # Ruby wrapper around the Java based NED tool that's powered by DBpedia.
+  # Ruby wrapper around the Java based Ned tool that's powered by DBpedia.
   #
   # @!attribute [r] options
   #  @return [Hash]
   #
-  class NED
+  class Ned
     attr_reader :options
 
     ##
@@ -109,5 +109,5 @@ module Opener
     def kernel
       return File.join(core_dir, 'ehu-ned-1.0.jar')
     end
-  end # NED
+  end # Ned
 end # Opener
