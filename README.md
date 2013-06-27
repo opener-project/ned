@@ -1,139 +1,57 @@
-# EHU-ned_kernel
+# NED
 
-This repository contains the Named Entity Disambiguation tool based on DBpedia Spotlight.
-Providing that a DBpedia Spotlight Rest server is running, the EHU-ned module will take
-KAF as input (containing <entities> elements) and perform Named Entity Disambiguation
-for each language within the OpeNER project.
+This repository contains a Named Entity Disambiguation tool that queries a
+DBpedia spotlight server. The client takes KAF as input (containing
+`<entities>` nodes).
 
-Developed by IXA NLP Group (ixa.si.ehu.es) for the 7th Framework OpeNER European project.
+## Requirements
 
-### Contents
+* Ruby 1.9.2 or newer
+* Java 1.7 or newer
 
-The contents of the repository are the following:
+## Installation
 
-- core: directory containing the core of the EHU DBpedia Spotlight
-    + src/ source files of EHU-ned
-    + pom.xml modified pom.xml to install DBpedia Spotlight
+Installing as a regular Gem:
 
-- README.md: This README
+    gem install opener-ned
 
-## Installation Procedure
+Using Bundler:
 
-In a snapshot:
+    gem 'opener-ned',
+      :git    => 'git@github.com:opener-project/constituent-parser-base.git',
+      :branch => 'master'
 
-    1. Modify EHU-ned_kernel/core/pom.xml as specified below.
-    2. Compile ehu-ned module with `mvn clean package`
-    3. Start Rest server as specified [here](https://github.com/opener-project/EHU-DBpedia-Spotlight).
-       cd dbpedia-spotlight/conf
-       java -jar ../dist/target/dbpedia-spotlight-0.6-jar-with-dependencies.jar
-    4. cat ner.kaf | EHU-ned_kernel/core/target/ehu-ned-1.0.jar -p $PORT_NUMBER
+Using specific install:
 
-If you already have installed in your machine JDK7 and MAVEN 3, please go to step 3
-directly. Otherwise, follow the detailed steps:
+    gem install specific_install
+    gem specific_install opener-ned \
+       -l https://github.com/opener-project/constituent-parser-base.git
 
-### 1. Install JDK 1.7
+## Usage
 
-If you do not install JDK 1.7 in a default location, you will probably need to configure the PATH in .bashrc or .bash_profile:
+The NED client requires a working DBpedia Spotlight server to be available. By
+default it tries to connect to http://localhost:2020 (English language) but you
+can change this using the `--host` and `--port` options in the CLI.
 
-    export JAVA_HOME=/yourpath/local/java17
-    export PATH=${JAVA_HOME}/bin:${PATH}
+A simple example:
 
+    cat some_input_file.kaf | ned --host=http://example.com/ --port=1234
 
-If you use tcsh you will need to specify it in your .login as follows:
+## Contributing
 
-    setenv JAVA_HOME /usr/java/java17
-    setenv PATH ${JAVA_HOME}/bin:${PATH}
+First make sure all the required dependencies are installed:
 
+    bundle install
 
-If you re-login into your shell and run the command
+Then compile the required Java code:
 
-    java -version
+    bundle exec rake compile
 
+For this you'll need to have Java 1.7 and Maven installed. These requirements
+are verified for you before the Rake task calls Maven.
 
-You should now see that your jdk is 1.7
+## Structure
 
-### 2. Install MAVEN 3
-
-Download MAVEN 3 from
-
-    wget http://ftp.udc.es/apache/maven/maven-3/3.0.4/binaries/apache-maven-3.0.4-bin.tar.gz
-
-Now you need to configure the PATH. For Bash Shell:
-
-    export MAVEN_HOME=/home/ragerri/local/apache-maven-3.0.4
-    export PATH=${MAVEN_HOME}/bin:${PATH}
-
-For tcsh shell:
-
-    setenv MAVEN3_HOME ~/local/apache-maven-3.0.4
-    setenv PATH ${MAVEN3}/bin:{PATH}
-
-If you re-login into your shell and run the command
-
-    mvn -version
-
-
-You should see reference to the MAVEN version you have just installed plus the JDK 7 that is using.
-
-### 3. Download the repository
-
-    git clone git@github.com:opener-project/EHU-ned_kernel.git
-
-### 4. Modify pom.xml
-
-Go to the core subdirectory:
-
-    cd EHU-ned_kernel/core/
-
-And modify the properties element of the pom.xml to point to where the dbpedia-spotlight jar is placed
-as setup by [following these instructions](https://github.com/opener-project/EHU-DBpedia-Spotlight):
-
-    <properties>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <!--maven variable which points to your local spotlight -->
-            <internal.path>/home/user/dbpedia-spotlight/dist/target/</internal.path>
-          </properties>
-
-For example, if you installed dbpedia-spotlight in `/home/user/dbpedia-spotlight`, the binary
-dbpedia-spotlight-0.6-jar-with-dependencies.jar directory will correspond to `/home/user/dbpedia-spotlight/dist/target/` as
-specified in the <properties> element above.
-
-### 5. Install EHU-ned
-
-Once this path is correctly set, install the EHU-ned module
-
-    mvn clean package
-
-This command will create a `EHU-ned_kernel/core/target` directory containing the
-ehu-ned-1.0.jar binary with all dependencies included.
-
-### 6. EHU-ned USAGE
-
-The ehu-ned-1.0.jar requires a KAF document containing <entities> elements as standard input and
-provides Named Entity Disambiguation as standard output. It also requires the port number as argument.
-The port numbers assigned to each language are the following:
-
-    - de: 2010
-    - en: 2020
-    - es: 2030
-    - fr: 2040
-    - it: 2050
-    - nl: 2060
-
-If you wanted to change the port numbers, please do so at the corresponding server_$lang.properties
-in the [EHU-DBpedia-Spotlight](https://github.com/opener-project/EHU-DBpedia-Spotlight) repository. Note that
-you will also need to change the corresponding server_$lang.properties in `dbpedia-spotlight/conf/` directory.
-
-**Once you have a [DBpedia Spotlight Rest server running](https://github.com/opener-project/EHU-DBpedia-Spotlight)** you
-can send queries to it via the EHU-ned module as follows:
-
-    cat ner.kaf | java -jar ehu-ned-1.0.jar -p $PORT_NUMBER
-
-#### Contact information
-
-    Rodrigo Agerri and Itziar Aldabe
-    {rodrigo.agerri,itziar.aldabe}@ehu.es
-    IXA NLP Group
-    University of the Basque Country (UPV/EHU)
-    E-20018 Donostia-San Sebastián
-
+This repository comes in two parts: a collection of Java source files and Ruby
+source files. The Java code can be found in the `core/` directory, everything
+else will be Ruby source code.

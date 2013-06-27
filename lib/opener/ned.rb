@@ -42,9 +42,14 @@ module Opener
     #  underlying kernel.
     # @option options [String|Numeric] :port The port number to connect to.
     # @option options [String] :host The hostname of the DBpedia server.
+    # @option options [String] :language When set the port number will be based
+    #  on this value.
     #
     def initialize(options = {})
       @options = DEFAULT_OPTIONS.merge(options)
+
+      @options[:host] ||= DEFAULT_HOST
+      @options[:port] ||= DEFAULT_PORT
     end
 
     ##
