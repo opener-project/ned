@@ -57,6 +57,9 @@ public class Annotate {
 		if (tok.contains("\"")){
 		    tok = tok.replaceAll("\"","'");
 		}
+		 if (tok.matches("&")) { 
+	        	tok = tok.replaceAll("&","amper");
+	    }
 		text += tok;
 	    }
 	}
