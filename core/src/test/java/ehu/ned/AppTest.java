@@ -1,4 +1,4 @@
-package ixa.entity.linking;
+package ehu.ned;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

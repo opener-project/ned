@@ -19,9 +19,9 @@ package ehu.ned;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.methods.GetMethod;
+//import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+//import org.apache.commons.httpclient.methods.StringRequestEntity;
 
 
 import org.dbpedia.spotlight.exceptions.AnnotationException;
@@ -30,7 +30,7 @@ import org.dbpedia.spotlight.model.Text;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.net.URLEncoder;
+//import java.net.URLEncoder;
 
 import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilderFactory; 
@@ -131,7 +131,7 @@ offset="414"/></annotation>
 		try {
 		    String url = host + ":" + port +"/rest/disambiguate";
 		    PostMethod method = new PostMethod(url);
-		    method.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		    method.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
 		    NameValuePair[] params = {new NameValuePair("text",text.text()), new NameValuePair("spotter","SpotXmlParser"), new NameValuePair("confidence",Double.toString(CONFIDENCE)), new NameValuePair("support",Integer.toString(SUPPORT))};
 		    method.setRequestBody(params);
 		    method.setRequestHeader(new Header("Accept", "text/xml"));
