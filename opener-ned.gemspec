@@ -1,4 +1,4 @@
-require File.expand_path('../lib/opener/ned', __FILE__)
+require File.expand_path('../lib/opener/ned/version', __FILE__)
 
 generated = Dir.glob('core/target/ehu-ned-*.jar')
 
