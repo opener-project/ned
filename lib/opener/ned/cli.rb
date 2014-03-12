@@ -69,15 +69,7 @@ Port Numbers:
 
         ned = Ned.new(options)
 
-        stdout, stderr, process = ned.run(input)
-
-        if process.success?
-          puts stdout
-
-          STDERR.puts(stderr) unless stderr.empty?
-        else
-          abort stderr
-        end
+        puts ned.run(input)
       end
 
       private

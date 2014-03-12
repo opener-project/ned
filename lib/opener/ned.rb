@@ -1,8 +1,16 @@
-require 'open3'
 require 'optparse'
+require 'java'
+require 'stringio'
+
+require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
 require_relative 'ned/version'
 require_relative 'ned/cli'
+
+import 'java.io.InputStreamReader'
+
+import 'ehu.ned.Annotate'
+import 'ixa.kaflib.KAFDocument'
 
 module Opener
   ##
@@ -53,15 +61,6 @@ module Opener
     end
 
     ##
-    # Builds the command to use for executing the kernel.
-    #
-    # @return [String]
-    #
-    def command
-      return "java -jar #{kernel} #{command_arguments.join(' ')}"
-    end
-
-    ##
     # Processes the input and returns an Array containing the output of STDOUT,
     # STDERR and an object containing process information.
     #
@@ -73,41 +72,18 @@ module Opener
         raise ArgumentError, 'No input specified'
       end
 
-      unless File.file?(kernel)
-        raise "The Java kernel (#{kernel}) does not exist"
-      end
+      input_io  = StringIO.new(input)
+      reader    = InputStreamReader.new(input_io.to_inputstream)
+      document  = KAFDocument.create_from_stream(reader)
+      annotator = Java::ehu.ned.Annotate.new
 
-      return Open3.capture3(*command.split(' '), :stdin_data => input)
-    end
+      annotator.disambiguateNEsToKAF(
+        document,
+        options[:host],
+        options[:port].to_s
+      )
 
-    protected
-
-    ##
-    # Returns the arguments to pass to the underlying kernel as an Array.
-    #
-    # @return [Array]
-    #
-    def command_arguments
-      arguments = [
-        "-p #{options[:port]}",
-        "-H #{options[:host]}"
-      ]
-
-      return arguments
-    end
-
-    ##
-    # @return [String]
-    #
-    def core_dir
-      return File.expand_path('../../../core/target', __FILE__)
-    end
-
-    ##
-    # @return [String]
-    #
-    def kernel
-      return File.join(core_dir, 'ehu-ned-1.0.jar')
+      return document.to_string
     end
   end # Ned
 end # Opener
