@@ -77,7 +77,7 @@ module Opener
         raise "The Java kernel (#{kernel}) does not exist"
       end
 
-      return Open3.capture3(command, :stdin_data => input)
+      return Open3.capture3(*command.split(' '), :stdin_data => input)
     end
 
     protected
