@@ -1,6 +1,7 @@
 require 'optparse'
 require 'java'
 require 'stringio'
+require 'nokogiri'
 
 require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
@@ -22,15 +23,18 @@ module Opener
   class Ned
     attr_reader :options
 
-    ##
-    # @return [String]
-    #
-    DEFAULT_HOST = 'http://localhost'
-
-    ##
-    # @return [Numeric]
-    #
-    DEFAULT_PORT = 2020 # English
+    LANGUAGE_ENDPOINTS = {
+      "en"=>"http://spotlight.sztaki.hu:2222",
+      "nl"=>"http://nl.dbpedia.org/spotlight",
+      "fr"=>"http://spotlight.sztaki.hu:2225",
+      "de"=>"http://de.dbpedia.org/spotlight",
+      "es"=>"http://spotlight.sztaki.hu:2231",
+      "it"=>"http://spotlight.sztaki.hu:2230",
+      "ru"=>"http://spotlight.sztaki.hu:2227",
+      "pt"=>"http://spotlight.sztaki.hu:2228",
+      "hu"=>"http://spotlight.sztaki.hu:2229",
+      "tr"=>"http://spotlight.sztaki.hu:2235"
+    }
 
     ##
     # Hash containing the default options to use.
@@ -39,8 +43,6 @@ module Opener
     #
     DEFAULT_OPTIONS = {
       :args => [],
-      :port => DEFAULT_PORT,
-      :host => DEFAULT_HOST
     }.freeze
 
     ##
@@ -55,35 +57,40 @@ module Opener
     #
     def initialize(options = {})
       @options = DEFAULT_OPTIONS.merge(options)
-
-      @options[:host] ||= DEFAULT_HOST
-      @options[:port] ||= DEFAULT_PORT
     end
 
-    ##
-    # Processes the input and returns an Array containing the output of STDOUT,
-    # STDERR and an object containing process information.
-    #
-    # @param [String] input The text of which to detect the language.
-    # @return [Array]
-    #
     def run(input)
       if !input or input.strip.empty?
         raise ArgumentError, 'No input specified'
       end
+
+      language = language_from_kaf(input)
 
       input_io  = StringIO.new(input)
       reader    = InputStreamReader.new(input_io.to_inputstream)
       document  = KAFDocument.create_from_stream(reader)
       annotator = Java::ehu.ned.Annotate.new
 
+      endpoint = uri_for_language(language)
+
       annotator.disambiguateNEsToKAF(
         document,
-        options[:host],
-        options[:port].to_s
+        endpoint.to_s
       )
 
       return document.to_string
     end
+
+    private
+
+    def language_from_kaf(input)
+      document = Nokogiri::XML(input)
+      language = document.at('KAF').attr('xml:lang')
+    end
+
+    def uri_for_language(language)
+      LANGUAGE_ENDPOINTS[language]+"/rest/disambiguate"
+    end
+
   end # Ned
 end # Opener
