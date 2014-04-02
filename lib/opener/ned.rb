@@ -71,7 +71,7 @@ module Opener
       document  = KAFDocument.create_from_stream(reader)
       annotator = Java::ehu.ned.Annotate.new
 
-      endpoint = uri_for_language(language)
+      endpoint = @options.fetch(:endpoint, uri_for_language(language))
 
       annotator.disambiguateNEsToKAF(
         document,

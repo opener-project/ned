@@ -26,19 +26,12 @@
             </div>
 
             <div>
-                <label for="host">Host *</label>
+              <label for="endpoint">DBPedia disambiguateion REST endpoint.</label>
                 <br />
 
-                <input id="host" type="text" name="host"
-                value="<%= Opener::Ned::DEFAULT_HOST %>" />
-            </div>
+                <input id="host" type="text" name="host" />
 
-            <div>
-                <label for="port">Port *</label>
-                <br />
-
-                <input id="port" type="text" name="port"
-                value="<%= Opener::Ned::DEFAULT_PORT %>" />
+              Example: http://nl.dbpedia.org/spotlight/rest/disambiguate
             </div>
 
             <% 5.times do |number| %>
