@@ -33,8 +33,8 @@ import java.io.*;
 //import java.net.URLEncoder;
 
 import org.w3c.dom.Document;
-import javax.xml.parsers.DocumentBuilderFactory; 
-import javax.xml.parsers.DocumentBuilder; 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
 import java.io.StringReader;
 import org.xml.sax.InputSource;
 
@@ -47,7 +47,7 @@ import org.apache.log4j.Logger;
  */
 
 public class DBpediaSpotlightClient {
-    public Logger LOG = Logger.getLogger(this.getClass()); 
+    public Logger LOG = Logger.getLogger(this.getClass());
 
     private static final double CONFIDENCE = 0.0;
     private static final int SUPPORT = 0;
@@ -123,30 +123,40 @@ Petrobras" offset="365"/><surfaceForm name="Twelve" offset="376"/>
 offset="414"/></annotation>
      */
 
-    public Document extract(Text text, String host, String port) throws AnnotationException{
+    public Document extract(Text text, String endpoint) throws AnnotationException {
+     return extract_with_endpoint(text, endpoint);
+    }
 
-        LOG.info("Querying API.");
-		String spotlightResponse = "";
-		Document doc = null;
-		try {
-		    String url = host + ":" + port +"/rest/disambiguate";
-		    PostMethod method = new PostMethod(url);
-		    method.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
-		    NameValuePair[] params = {new NameValuePair("text",text.text()), new NameValuePair("spotter","SpotXmlParser"), new NameValuePair("confidence",Double.toString(CONFIDENCE)), new NameValuePair("support",Integer.toString(SUPPORT))};
-		    method.setRequestBody(params);
-		    method.setRequestHeader(new Header("Accept", "text/xml"));
-		    spotlightResponse = request(method);
-		    doc = loadXMLFromString(spotlightResponse);
-		}
-		catch (javax.xml.parsers.ParserConfigurationException ex) {
-		} 
-		catch (org.xml.sax.SAXException ex) {
-		} 
-		catch (java.io.IOException ex) {
-		} 		
-		
-		return doc;
-	}
+    public Document extract(Text text, String host, String port) throws AnnotationException{
+        String endpoint = host + ":" + port +"/rest/disambiguate";
+        return extract_with_endpoint(text, endpoint);
+    }
+
+    public Document extract_with_endpoint(Text text, String endpoint) throws AnnotationException {
+      LOG.info("Querying API at: "+endpoint);
+
+      String spotlightResponse = "";
+      Document doc = null;
+      try {
+          PostMethod method = new PostMethod(endpoint);
+          method.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+          NameValuePair[] params = {new NameValuePair("text",text.text()), new NameValuePair("spotter","SpotXmlParser"), new NameValuePair("confidence",Double.toString(CONFIDENCE)), new NameValuePair("support",Integer.toString(SUPPORT))};
+          method.setRequestBody(params);
+          method.setRequestHeader(new Header("Accept", "text/xml"));
+          spotlightResponse = request(method);
+          doc = loadXMLFromString(spotlightResponse);
+      }
+      catch (javax.xml.parsers.ParserConfigurationException ex) {
+      }
+      catch (org.xml.sax.SAXException ex) {
+      }
+      catch (java.io.IOException ex) {
+      }
+
+      return doc;
+
+    }
+
 
     public static Document loadXMLFromString(String xml)  throws org.xml.sax.SAXException, java.io.IOException, javax.xml.parsers.ParserConfigurationException
     {
