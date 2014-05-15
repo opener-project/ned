@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
     'core/target/ehu-ned-*.jar',
     'lib/**/*',
     '*.gemspec',
+    'config.ru',
     'README.md'
   ]).select { |file| File.file?(file) }
 
