@@ -29,34 +29,12 @@ module Opener
             show_version
           end
 
-          opts.on('-p', '--port [VALUE]', 'Use a custom port') do |value|
-            @options[:port] = value
-          end
-
-          opts.on('-H', '--host [VALUE]', 'Use a custom hostname') do |value|
-            @options[:host] = value
-          end
-
           opts.separator <<-EOF
 
 Examples:
 
   cat input_file.kaf | #{opts.program_name}
-  cat input_file.kaf | #{opts.program_name} --host=http://some-host.com/
 
-Port Numbers:
-
-  Port numbers are required. Each language has its own port number (unless
-  specified otherwise):
-
-  * German: 2010
-  * English: 2020
-  * Spanish: 2030
-  * French: 2040
-  * Italian: 2050
-  * Dutch: 2060
-
-  By default port 2020 (English) is used.
           EOF
         end
       end
