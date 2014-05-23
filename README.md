@@ -118,7 +118,7 @@ Where to go from here
 Report problem/Get help
 -----------------------
 
-If you encounter problems, please email <support@opener-project.eu or > leave an
+If you encounter problems, please email <support@opener-project.eu> or leave an
 issue in the [issue tracker](https://github.com/opener-project/ned/issue).
 
 
