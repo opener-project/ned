@@ -1,17 +1,12 @@
 Introduction
 ------------
 
-This repository contains a Named Entity Disambiguation tool that queries a
-DBpedia spotlight server. The client takes KAF as input (containing
-`<entities>` nodes).
+This repository contains a Named Entity Disambiguation tool that queries a DBpedia spotlight server. The client takes KAF as input (containing `<entities>` nodes).
 
 ### Confused by some terminology?
 
-This software is part of a larger collection of natural language processing
-tools known as "the OpeNER project". You can find more information about the
-project at (the OpeNER portal)[http://opener-project.github.io]. There you can
-also find references to terms like KAF (an XML standard to represent linguistic
-annotations in texts), component, cores, scenario's and pipelines.
+This software is part of a larger collection of natural language processing tools known as "the OpeNER project". You can find more information about the project at [the OpeNER portal](http://opener-project.github.io). There you can also find references to terms like KAF (an XML standard to represent linguistic annotations in texts), component, cores, scenario's and pipelines.
+
 
 Quick Use Example
 -----------------
@@ -20,13 +15,12 @@ Installing the ned can be done by executing:
 
     gem install opener-ned
 
-Please bare in mind that all components in OpeNER take KAF as an input and
-output KAF by default.
+Please bare in mind that all components in OpeNER take KAF as an input and output KAF by default.
 
 
 ### Command line interface
 
-The NED client connects to the (DBPedia spotlight demo servers)[http://dbpedia-spotlight.github.io/demo/].
+The NED client connects to the [DBPedia spotlight demo servers](http://dbpedia-spotlight.github.io/demo/).
 
 A simple example:
 
@@ -56,26 +50,20 @@ You can launch a language identification webservice by executing:
 
     ned-server
 
-This will launch a mini webserver with the webservice. It defaults to port 9292,
-so you can access it at <http://localhost:9292>.
+This will launch a mini webserver with the webservice. It defaults to port 9292, so you can access it at <http://localhost:9292>.
 
-To launch it on a different port provide the `-p [port-number]` option like
-this:
+To launch it on a different port provide the `-p [port-number]` option like this:
 
     ned-server -p 1234
 
 It then launches at <http://localhost:1234>
 
-Documentation on the Webservice is provided by surfing to the urls provided
-above. For more information on how to launch a webservice run the command with
-the ```-h``` option.
+Documentation on the Webservice is provided by surfing to the urls provided above. For more information on how to launch a webservice run the command with the ```-h``` option.
 
 
 ### Daemon
 
-Last but not least the NED comes shipped with a daemon that
-can read jobs (and write) jobs to and from Amazon SQS queues. For more
-information type:
+Last but not least the NED comes shipped with a daemon that can read jobs (and write) jobs to and from Amazon SQS queues. For moreinformation type:
 
     ned-daemon -h
 
@@ -83,11 +71,8 @@ information type:
 Description of dependencies
 ---------------------------
 
-This component runs best if you run it in an environment suited for OpeNER
-components. You can find an installation guide and helper tools in the (OpeNER
-installer)[https://github.com/opener-project/opener-installer] and (an
-installation guide on the Opener
-Website)[http://opener-project.github.io/getting-started/how-to/local-installation.html]
+This component runs best if you run it in an environment suited for OpeNER components. You can find an installation guide and helper tools in the [OpeNER installer](ttps://github.com/opener-project/opener-installer) and an
+[installation guide on the Opener Website](http://opener-project.github.io/getting-started/how-to/local-installation.html)
 
 At least you need the following system setup:
 
@@ -102,9 +87,7 @@ At least you need the following system setup:
 
 ### Structure
 
-This repository comes in two parts: a collection of Java source files and Ruby
-source files. The Java code can be found in the `core/` directory, everything
-else will be Ruby source code.
+This repository comes in two parts: a collection of Java source files and Ruby source files. The Java code can be found in the `core/` directory, everything else will be Ruby source code.
 
 Language Extension
 ------------------
@@ -114,20 +97,20 @@ Language Extension
 Where to go from here
 ---------------------
 
-* Check (the project websitere)[http://opener-project.github.io]
-* (Checkout the webservice)[http://opener.olery.com/ned]
+* [Check the project websitere](http://opener-project.github.io)
+* [Checkout the webservice](http://opener.olery.com/ned)
 
 Report problem/Get help
 -----------------------
 
-If you encounter problems, please email support@opener-project.eu or leave an
-issue in the (issue tracker)[https://github.com/opener-project/ned/issues].
+If you encounter problems, please email <support@opener-project.eu> or leave an issue in the 
+[issue tracker](https://github.com/opener-project/ned/issue).
 
 
 Contributing
 ------------
 
-1. Fork it ( http://github.com/opener-project/ned/fork )
+1. Fork it <http://github.com/opener-project/ned/fork>
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
