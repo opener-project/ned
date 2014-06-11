@@ -7,6 +7,7 @@ require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
 require_relative 'ned/version'
 require_relative 'ned/cli'
+require_relative 'ned/error_layer'
 
 import 'java.io.InputStreamReader'
 
@@ -60,25 +61,30 @@ module Opener
     end
 
     def run(input)
-      if !input or input.strip.empty?
-        raise ArgumentError, 'No input specified'
+      begin
+        if !input or input.strip.empty?
+          raise ArgumentError, 'No input specified'
+        end
+
+        language = language_from_kaf(input)
+
+        input_io  = StringIO.new(input)
+        reader    = InputStreamReader.new(input_io.to_inputstream)
+        document  = KAFDocument.create_from_stream(reader)
+        annotator = Java::ehu.ned.Annotate.new
+
+        endpoint = @options.fetch(:endpoint, uri_for_language(language))
+
+        annotator.disambiguateNEsToKAF(
+          document,
+          endpoint.to_s
+        )
+
+        return document.to_string
+        
+      rescue Exception => error
+        return ErrorLayer.new(input, error.message, self.class).add
       end
-
-      language = language_from_kaf(input)
-
-      input_io  = StringIO.new(input)
-      reader    = InputStreamReader.new(input_io.to_inputstream)
-      document  = KAFDocument.create_from_stream(reader)
-      annotator = Java::ehu.ned.Annotate.new
-
-      endpoint = @options.fetch(:endpoint, uri_for_language(language))
-
-      annotator.disambiguateNEsToKAF(
-        document,
-        endpoint.to_s
-      )
-
-      return document.to_string
     end
 
     private
