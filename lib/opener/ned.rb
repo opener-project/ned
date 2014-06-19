@@ -7,7 +7,6 @@ require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
 require_relative 'ned/version'
 require_relative 'ned/cli'
-require_relative 'ned/error_layer'
 
 import 'java.io.InputStreamReader'
 
@@ -83,7 +82,7 @@ module Opener
         return document.to_string
         
       rescue Exception => error
-        return ErrorLayer.new(input, error.message, self.class).add
+        return Opener::Core::ErrorLayer.new(input, error.message, self.class).add
       end
     end
 
