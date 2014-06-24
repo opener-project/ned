@@ -10,7 +10,6 @@ require_relative 'ned/cli'
 
 import 'java.io.InputStreamReader'
 
-import 'ehu.ned.Annotate'
 import 'ixa.kaflib.KAFDocument'
 
 module Opener
@@ -80,7 +79,7 @@ module Opener
         )
 
         return document.to_string
-        
+
       rescue Exception => error
         return Opener::Core::ErrorLayer.new(input, error.message, self.class).add
       end
