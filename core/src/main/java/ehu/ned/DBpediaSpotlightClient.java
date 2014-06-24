@@ -39,6 +39,7 @@ import java.io.StringReader;
 import org.xml.sax.InputSource;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 
 /**
  * Simple web service-based annotation client for DBpedia Spotlight.
@@ -55,6 +56,9 @@ public class DBpediaSpotlightClient {
     // Create an instance of HttpClient.
     private static HttpClient client = new HttpClient();
 
+    public void disableLogging() {
+        LOG.setLevel(Level.OFF);
+    }
 
     public String request(HttpMethod method) throws AnnotationException {
 

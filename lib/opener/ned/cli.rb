@@ -29,6 +29,10 @@ module Opener
             show_version
           end
 
+          opts.on('-l', '--logging', 'Enables logging output') do
+            @options[:logging] = true
+          end
+
           opts.separator <<-EOF
 
 Examples:

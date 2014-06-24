@@ -41,7 +41,8 @@ module Opener
     # @return [Hash]
     #
     DEFAULT_OPTIONS = {
-      :args => [],
+      :args    => [],
+      :logging => false
     }.freeze
 
     ##
@@ -49,10 +50,9 @@ module Opener
     #
     # @option options [Array] :args Arbitrary arguments to pass to the
     #  underlying kernel.
-    # @option options [String|Numeric] :port The port number to connect to.
-    # @option options [String] :host The hostname of the DBpedia server.
-    # @option options [String] :language When set the port number will be based
-    #  on this value.
+    #
+    # @option options [TrueClass|FalseClass] :logging When set to `true`
+    #  logging is enabled. This is disabled by default.
     #
     def initialize(options = {})
       @options = DEFAULT_OPTIONS.merge(options)
@@ -71,7 +71,9 @@ module Opener
         document  = KAFDocument.create_from_stream(reader)
         annotator = Java::ehu.ned.Annotate.new
 
-        endpoint = @options.fetch(:endpoint, uri_for_language(language))
+        annotator.disableLogging unless options[:logging]
+
+        endpoint = options.fetch(:endpoint, uri_for_language(language))
 
         annotator.disambiguateNEsToKAF(
           document,

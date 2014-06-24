@@ -29,6 +29,10 @@ public class Annotate {
     c = new DBpediaSpotlightClient ();
   }
 
+  public void disableLogging() {
+    c.disableLogging();
+  }
+
   public void disambiguateNEsToKAF (KAFDocument kaf, String endpoint) throws Exception {
     addLinguisticProcessor(kaf);
     String annotation = KAF2XMLSpot(kaf);
