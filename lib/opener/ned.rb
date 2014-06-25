@@ -2,6 +2,7 @@ require 'optparse'
 require 'java'
 require 'stringio'
 require 'nokogiri'
+require 'opener/core'
 
 require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
