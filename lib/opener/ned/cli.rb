@@ -21,6 +21,8 @@ module Opener
           opts.program_name   = 'ned'
           opts.summary_indent = '  '
 
+          opts.separator "\nOptions:\n\n"
+
           opts.on('-h', '--help', 'Shows this help message') do
             show_help
           end
@@ -31,6 +33,10 @@ module Opener
 
           opts.on('-l', '--logging', 'Enables logging output') do
             @options[:logging] = true
+          end
+
+          opts.on('--no-time', 'Disables timestamps') do
+            @options[:enable_time] = false
           end
 
           opts.separator <<-EOF

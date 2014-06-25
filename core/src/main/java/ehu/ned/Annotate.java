@@ -25,12 +25,30 @@ public class Annotate {
 
   DBpediaSpotlightClient c;
 
-  public Annotate(){
+  public boolean enable_timestamp = true;
+
+  public Annotate() {
     c = new DBpediaSpotlightClient ();
   }
 
+  /**
+   * Disables the logger of the DBpedia client.
+   *
+   * This method is mainly intended to be used when you don't want STDERR to be
+   * full of logging output (e.g. when running tests or benchmarks).
+   */
   public void disableLogging() {
     c.disableLogging();
+  }
+
+  /**
+   * Disables the addition of dynamic timestamps.
+   *
+   * This method is mainly intended to be called from Ruby land during the
+   * testing process.
+   */
+  public void disableTimestamp() {
+      enable_timestamp = false;
   }
 
   public void disambiguateNEsToKAF (KAFDocument kaf, String endpoint) throws Exception {
@@ -50,7 +68,12 @@ public class Annotate {
   }
 
   public void addLinguisticProcessor(KAFDocument kaf) {
-    kaf.addLinguisticProcessor("ehu-ned", "ehu-dbpedia-spotlight", "1.0");
+    if ( enable_timestamp ) {
+      kaf.addLinguisticProcessor("ehu-ned", "ehu-dbpedia-spotlight", "1.0");
+    }
+    else {
+      kaf.addLinguisticProcessor("ehu-ned", "ehu-dbpedia-spotlight", "now", "1.0");
+    }
   }
 
   private String KAF2XMLSpot(KAFDocument kaf){
