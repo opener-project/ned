@@ -1,79 +1,68 @@
 module Opener
   class Ned
     ##
-    # CLI wrapper around {Opener::Ned} using OptionParser.
+    # CLI wrapper around {Opener::Ned} using Slop.
     #
-    # @!attribute [r] options
-    #  @return [Hash]
-    # @!attribute [r] option_parser
-    #  @return [OptionParser]
+    # @!attribute [r] parser
+    #  @return [Slop]
     #
     class CLI
-      attr_reader :options, :option_parser
+      attr_reader :parser
+
+      def initialize
+        @parser = configure_slop
+      end
 
       ##
-      # @param [Hash] options
+      # @param [Array] argv
       #
-      def initialize(options = {})
-        @options = DEFAULT_OPTIONS.merge(options)
+      def run(argv = ARGV)
+        parser.parse(argv)
+      end
 
-        @option_parser = OptionParser.new do |opts|
-          opts.program_name   = 'ned'
-          opts.summary_indent = '  '
+      ##
+      # @return [Slop]
+      #
+      def configure_slop
+        return Slop.new(:strict => false, :indent => 2, :help => true) do
+          banner 'Usage: ner [OPTIONS]'
 
-          opts.separator "\nOptions:\n\n"
+          separator <<-EOF.chomp
 
-          opts.on('-h', '--help', 'Shows this help message') do
-            show_help
-          end
+About:
 
-          opts.on('-v', '--version', 'Shows the current version') do
-            show_version
-          end
+    Named Entity Disambiguation for various languages using DBPedia.
+    This command reads input from STDIN.
 
-          opts.on('-l', '--logging', 'Enables logging output') do
-            @options[:logging] = true
-          end
+Example:
 
-          opts.on('--no-time', 'Disables timestamps') do
-            @options[:enable_time] = false
-          end
-
-          opts.separator <<-EOF
-
-Examples:
-
-  cat input_file.kaf | #{opts.program_name}
-
+    cat some_file.kaf | ned
           EOF
+
+          separator "\nOptions:\n"
+
+          on :v, :version, 'Shows the current version' do
+            abort "ned v#{VERSION} on #{RUBY_DESCRIPTION}"
+          end
+
+          on :l, :logging, 'Enables debug logging output',
+            :default => false
+
+          on :'disable-time', 'Disables adding of dynamic timestamps',
+            :default => false
+
+          run do |opts, args|
+            ned = Ned.new(
+              :args        => args,
+              :logging     => opts[:logging],
+              :enable_time => !opts[:'disable-time']
+            )
+
+            input = STDIN.tty? ? nil : STDIN.read
+
+            puts ned.run(input)
+          end
         end
-      end
-
-      ##
-      # @param [String] input
-      #
-      def run(input)
-        option_parser.parse!(options[:args])
-
-        ned = Ned.new(options)
-
-        puts ned.run(input)
-      end
-
-      private
-
-      ##
-      # Shows the help message and exits the program.
-      #
-      def show_help
-        abort option_parser.to_s
-      end
-
-      ##
-      # Shows the version and exits the program.
-      #
-      def show_version
-        abort "#{option_parser.program_name} v#{VERSION} on #{RUBY_DESCRIPTION}"
       end
     end # CLI
   end # Ned

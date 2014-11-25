@@ -1,16 +1,13 @@
-require 'optparse'
 require 'java'
 require 'stringio'
+
+require 'slop'
 require 'nokogiri'
-require 'opener/core'
 
 require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
 require_relative 'ned/version'
 require_relative 'ned/cli'
-
-import 'java.io.InputStreamReader'
-import 'ixa.kaflib.KAFDocument'
 
 module Opener
   ##
@@ -81,8 +78,8 @@ module Opener
 
       language  = language_from_kaf(input)
       input_io  = StringIO.new(input)
-      reader    = InputStreamReader.new(input_io.to_inputstream)
-      document  = KAFDocument.create_from_stream(reader)
+      reader    = Java::java.io.InputStreamReader.new(input_io.to_inputstream)
+      document  = Java::ixa.kaflib.KAFDocument.create_from_stream(reader)
       annotator = new_annotator
       endpoint  = options.fetch(:endpoint, uri_for_language(language))
 
@@ -92,9 +89,6 @@ module Opener
       )
 
       return document.to_string
-
-    rescue Exception => error
-      return Opener::Core::ErrorLayer.new(input, error.message, self.class).add
     end
 
     private

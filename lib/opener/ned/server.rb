@@ -1,13 +1,12 @@
-require 'sinatra/base'
 require 'opener/webservice'
-require 'httpclient'
 
 module Opener
   class Ned
-    class Server < Webservice
+    class Server < Webservice::Server
       set :views, File.expand_path('../views', __FILE__)
-      text_processor Ned
-      accepted_params :input, :host, :port
+
+      self.text_processor  = Ned
+      self.accepted_params = [:input, :host, :port]
     end # Server
   end # Ned
 end # Opener
