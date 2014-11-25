@@ -51,9 +51,9 @@ The webservice takes several options that get passed along to
 The daemon has the default OpeNER daemon options. Being:
 
     -h, --help                Shows this help message
-    -i, --input               The name of the input queue (default: opener-ner)
-    -b, --bucket              The S3 bucket to store output in (default: opener-ner)
-    -P, --pidfile             Path to the PID file (default: /var/run/opener/opener-ner-daemon.pid)
+    -i, --input               The name of the input queue (default: opener-ned)
+    -b, --bucket              The S3 bucket to store output in (default: opener-ned)
+    -P, --pidfile             Path to the PID file (default: /var/run/opener/opener-ned-daemon.pid)
     -t, --threads             The amount of threads to use (default: 10)
     -w, --wait                The amount of seconds to wait for the daemon to start (default: 3)
         --disable-syslog      Disables Syslog logging (enabled by default)
