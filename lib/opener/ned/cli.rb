@@ -25,7 +25,7 @@ module Opener
       #
       def configure_slop
         return Slop.new(:strict => false, :indent => 2, :help => true) do
-          banner 'Usage: ner [OPTIONS]'
+          banner 'Usage: ned [OPTIONS]'
 
           separator <<-EOF.chomp
 
