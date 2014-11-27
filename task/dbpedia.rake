@@ -8,7 +8,7 @@ file(tmp_jar) do |task|
   url = "https://github.com/dbpedia-spotlight/dbpedia-spotlight/releases/" \
     "download/release-#{dbpedia_version}/#{jar_name}"
 
-  sh "wget #{url} -O #{task.name}"
+  sh "wget #{url} -O #{task.name} --quiet"
 
   sh "mvn install:install-file -Dfile=#{tmp_jar} -DgroupId=ixa " \
     "-DartifactId=dbpedia-spotlight " \
