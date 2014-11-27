@@ -26,9 +26,9 @@ module Opener
     #
     LANGUAGE_ENDPOINTS = {
       "en" => "http://spotlight.sztaki.hu:2222",
-      "nl" => "http://nl.dbpedia.org/spotlight",
+      "nl" => "http://spotlight.sztaki.hu:2232",
       "fr" => "http://spotlight.sztaki.hu:2225",
-      "de" => "http://de.dbpedia.org/spotlight",
+      "de" => "http://spotlight.sztaki.hu:2226",
       "es" => "http://spotlight.sztaki.hu:2231",
       "it" => "http://spotlight.sztaki.hu:2230",
       "ru" => "http://spotlight.sztaki.hu:2227",
