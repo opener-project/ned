@@ -3,6 +3,7 @@ require 'stringio'
 
 require 'slop'
 require 'nokogiri'
+require 'opener/core'
 
 require File.expand_path('../../../core/target/ehu-ned-1.0.jar', __FILE__)
 
@@ -76,19 +77,34 @@ module Opener
         raise ArgumentError, 'No input specified'
       end
 
-      language  = language_from_kaf(input)
+      language = language_from_kaf(input)
+
+      unless LANGUAGE_ENDPOINTS[language]
+        raise Core::UnsupportedLanguageError, language
+      end
+
+      endpoint  = uri_for_language(language)
       input_io  = StringIO.new(input)
       reader    = Java::java.io.InputStreamReader.new(input_io.to_inputstream)
       document  = Java::ixa.kaflib.KAFDocument.create_from_stream(reader)
       annotator = new_annotator
-      endpoint  = options.fetch(:endpoint, uri_for_language(language))
 
-      annotator.disambiguateNEsToKAF(
-        document,
-        endpoint.to_s
-      )
+      annotator.disambiguateNEsToKAF(document, endpoint)
 
       return document.to_string
+    end
+
+    ##
+    # Returns the language from the KAF document.
+    #
+    # @param [String] input The input KAF document.
+    # @return [String]
+    #
+    def language_from_kaf(input)
+      document = Nokogiri::XML(input)
+      language = document.xpath('KAF/@xml:lang')[0]
+
+      return language ? language.to_s : nil
     end
 
     private
@@ -110,18 +126,6 @@ module Opener
       end
 
       return annotator
-    end
-
-    ##
-    # Returns the language from the KAF document.
-    #
-    # @param [String] input The input KAF document.
-    # @return [String]
-    #
-    def language_from_kaf(input)
-      document = Nokogiri::XML(input)
-
-      return document.at('KAF').attr('xml:lang')
     end
 
     ##
